@@ -8,10 +8,9 @@ var_dump($parking);
 // var_dump($hotels);
 
 //ARRAY DI HOTEL CON IL PARCHEGGIO
-$parking_hotel= array_filter($hotels, function ($hotel) {
+$parking_hotels = array_filter($hotels, function ($hotel) {
     return ($hotel['parking'] == true);
 });
-var_dump($parking_hotel);
 
 
 ?>
@@ -59,16 +58,27 @@ var_dump($parking_hotel);
                 </tr>
               </thead>
               <tbody>
-                <!-- <?php if($parking) ?>
-                  <?php foreach($hotels as $hotel){ ?> -->
-                <tr>
-                  <td><?= $hotel['name'] ?></td>
-                  <td><?= $hotel['description'] ?></td>
-                  <td><?= $hotel['parking'] ?></td>
-                  <td><?= $hotel['vote'] ?></td>
-                  <td><?= $hotel['distance_to_center'] ?></td>     
-                </tr>
-                <?php }?>
+                <?php if($parking): ?>
+                    <?php foreach($parking_hotels as $hotel) : ?>
+                        <tr>
+                            <td><?= $hotel['name'] ?></td>
+                            <td><?= $hotel['description'] ?></td>
+                            <td><?= $hotel['parking'] ?></td>
+                            <td><?= $hotel['vote'] ?></td>
+                            <td><?= $hotel['distance_to_center'] ?></td>     
+                        </tr>
+                    <?php endforeach ?>
+                <?php else: ?>
+                    <?php foreach($hotels as $hotel): ?>
+                        <tr>
+                            <td><?= $hotel['name'] ?></td>
+                            <td><?= $hotel['description'] ?></td>
+                            <td><?= $hotel['parking'] ?></td>
+                            <td><?= $hotel['vote'] ?></td>
+                            <td><?= $hotel['distance_to_center'] ?></td>     
+                        </tr>
+                    <?php endforeach?>
+                <?php endif;?>
               </tbody>
             </table>
         </main>
