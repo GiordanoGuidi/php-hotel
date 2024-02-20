@@ -16,7 +16,7 @@ $parking_hotels = array_filter($hotels, function ($hotel) {
 //ARRAY DI HOTEL IN BASE AL VOTO
 $rated_hotels = array_filter($hotels,function ($hotel){
     global $vote;
-    return ($hotel['vote'] == $vote);
+    return ($hotel['vote'] >= $vote);
 });
 var_dump($rated_hotels);
 
@@ -35,6 +35,7 @@ var_dump($rated_parking_hotels);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
     <!--BOOTSTRAP-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
@@ -83,7 +84,7 @@ var_dump($rated_parking_hotels);
                         </tr>
                     <?php endforeach ?>
                 <?php elseif($vote && !$parking):?>
-                    <?php foreach($rated_hotels as $hotel): ?>    
+                    <?php foreach($rated_hotels as $hotel): ?> 
                         <tr>
                             <td><?= $hotel['name'] ?></td>
                             <td><?= $hotel['description'] ?></td>
@@ -93,6 +94,9 @@ var_dump($rated_parking_hotels);
                         </tr>
                         <?php endforeach ?>
                 <?php elseif($vote && $parking): ?>
+                    <?php if(empty($rated_parking_hotels)): ?>
+                        <p> Nessun risultato dalla ricerca!</p>
+                    <?php endif?>  
                     <?php foreach($rated_parking_hotels as $hotel):?>
                         <tr>
                             <td><?= $hotel['name'] ?></td>
@@ -119,3 +123,9 @@ var_dump($rated_parking_hotels);
     </div>
 </body>
 </html>
+
+
+
+<style>
+
+</style>
