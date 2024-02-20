@@ -3,6 +3,17 @@
 require 'data/hotels.php';
 // var_dump($hotels);
 
+$parking= $_GET['parking'] ?? '';
+var_dump($parking);
+// var_dump($hotels);
+
+//ARRAY DI HOTEL CON IL PARCHEGGIO
+$parking_hotel= array_filter($hotels, function ($hotel) {
+    return ($hotel['parking'] == true);
+});
+var_dump($parking_hotel);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -21,9 +32,9 @@ require 'data/hotels.php';
         </header>
         <main>
             <!--FORM-->
-            <form>
+            <form actiom="" method="GET">
                 <select class="form-select mt-4 mb-4" aria-label="Default select example">
-                    <option selected>Filtra in base alle stelle</option>
+                    <option selected>Filtra in base al voto</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -31,8 +42,8 @@ require 'data/hotels.php';
                     <option value="5">5</option>
                 </select>
                 <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Parking</label>
+                    <input type="checkbox" class="form-check-input" name="parking">
+                    <label class="form-check-label">Parking</label>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
@@ -48,7 +59,8 @@ require 'data/hotels.php';
                 </tr>
               </thead>
               <tbody>
-                <?php foreach($hotels as $hotel){ ?>
+                <!-- <?php if($parking) ?>
+                  <?php foreach($hotels as $hotel){ ?> -->
                 <tr>
                   <td><?= $hotel['name'] ?></td>
                   <td><?= $hotel['description'] ?></td>
