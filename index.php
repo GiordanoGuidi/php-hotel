@@ -1,16 +1,24 @@
 <?php 
-
 require 'data/hotels.php';
-// var_dump($hotels);
-
+//RECUPERO IL VALORE DELL'INPUT CHECK-BOX
 $parking= $_GET['parking'] ?? '';
 var_dump($parking);
-// var_dump($hotels);
+
+//RECUPERO IL VALORE DELLA SELECT
+$vote = $_GET['vote'] ?? '';
+var_dump($vote);
 
 //ARRAY DI HOTEL CON IL PARCHEGGIO
 $parking_hotels = array_filter($hotels, function ($hotel) {
     return ($hotel['parking'] == true);
 });
+
+//ARRAY DI HOTEL IN BASE AL VOTO
+$rated_hotels = array_filter($hotels,function ($hotel){
+    global $vote;
+    return ($hotel['vote'] == $vote);
+});
+var_dump($rated_hotels);
 
 
 ?>
@@ -32,7 +40,7 @@ $parking_hotels = array_filter($hotels, function ($hotel) {
         <main>
             <!--FORM-->
             <form actiom="" method="GET">
-                <select class="form-select mt-4 mb-4" aria-label="Default select example">
+                <select class="form-select mt-4 mb-4" aria-label="Default select example" name="vote">
                     <option selected>Filtra in base al voto</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
