@@ -16,30 +16,50 @@ require 'data/hotels.php';
 </head>
 <body>
     <div class="container">
-        <h1 class="mt-5 text-center">Lista degli Hotel</h1>
-        <table class="table mt-5 text-center">
-          <thead>
-            <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Description</th>
-              <th scope="col">Parcking</th>
-              <th scope="col">Vote</th>
-              <th scope="col">Distance to Center</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach($hotels as $hotel){ ?>
-            <tr>
-              <td><?= $hotel['name'] ?></td>
-              <td><?= $hotel['description'] ?></td>
-              <td><?= $hotel['parking'] ?></td>
-              <td><?= $hotel['vote'] ?></td>
-              <td><?= $hotel['distance_to_center'] ?></td>     
-            </tr>
-            <?php }?>
-          </tbody>
-        </table>
+        <header>
+            <h1 class="mt-5 text-center">Lista degli Hotel</h1>
+        </header>
+        <main>
+            <!--FORM-->
+            <form>
+                <select class="form-select mt-4 mb-4" aria-label="Default select example">
+                    <option selected>Filtra in base alle stelle</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Parking</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            <!--TABLE-->
+            <table class="table mt-5 text-center">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Parcking</th>
+                  <th scope="col">Vote</th>
+                  <th scope="col">Distance to Center</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach($hotels as $hotel){ ?>
+                <tr>
+                  <td><?= $hotel['name'] ?></td>
+                  <td><?= $hotel['description'] ?></td>
+                  <td><?= $hotel['parking'] ?></td>
+                  <td><?= $hotel['vote'] ?></td>
+                  <td><?= $hotel['distance_to_center'] ?></td>     
+                </tr>
+                <?php }?>
+              </tbody>
+            </table>
+        </main>
     </div>
-    
 </body>
 </html>
