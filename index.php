@@ -73,48 +73,29 @@ var_dump($rated_parking_hotels);
                 </tr>
               </thead>
               <tbody>
+                <!--VENGONO FILTRATI HOTEL CON PARCHEGGIO-->
                 <?php if($parking && !$vote): ?>
                     <?php foreach($parking_hotels as $hotel) : ?>
-                        <tr>
-                            <td><?= $hotel['name'] ?></td>
-                            <td><?= $hotel['description'] ?></td>
-                            <td><?= $hotel['parking'] ?></td>
-                            <td><?= $hotel['vote'] ?></td>
-                            <td><?= $hotel['distance_to_center'] ?></td>     
-                        </tr>
+                       <?php include 'templates/tbody.php' ?>
                     <?php endforeach ?>
+                <!--VENGONO FILTRATI HOTEL CON IL VOTO-->
                 <?php elseif($vote && !$parking):?>
                     <?php foreach($rated_hotels as $hotel): ?> 
-                        <tr>
-                            <td><?= $hotel['name'] ?></td>
-                            <td><?= $hotel['description'] ?></td>
-                            <td><?= $hotel['parking'] ?></td>
-                            <td><?= $hotel['vote'] ?></td>
-                            <td><?= $hotel['distance_to_center'] ?></td>     
-                        </tr>
+                        <?php include 'templates/tbody.php' ?>
                         <?php endforeach ?>
+                <!--VENGONO FILTRATI HOTEL CON IL VOTO E IL PARCHEGGIO-->
                 <?php elseif($vote && $parking): ?>
+                    //!validazione in caso la ricerca non da nessun risultato
                     <?php if(empty($rated_parking_hotels)): ?>
                         <p> Nessun risultato dalla ricerca!</p>
                     <?php endif?>  
                     <?php foreach($rated_parking_hotels as $hotel):?>
-                        <tr>
-                            <td><?= $hotel['name'] ?></td>
-                            <td><?= $hotel['description'] ?></td>
-                            <td><?= $hotel['parking'] ?></td>
-                            <td><?= $hotel['vote'] ?></td>
-                            <td><?= $hotel['distance_to_center'] ?></td>     
-                        </tr>
-                    <?php endforeach?>        
+                       <?php include 'templates/tbody.php' ?>
+                    <?php endforeach?> 
+                <!--VENGONO MOSTRATI TUTTI GLI HOTEL-->
                 <?php else: ?>
                     <?php foreach($hotels as $hotel): ?>
-                        <tr>
-                            <td><?= $hotel['name'] ?></td>
-                            <td><?= $hotel['description'] ?></td>
-                            <td><?= $hotel['parking'] ?></td>
-                            <td><?= $hotel['vote'] ?></td>
-                            <td><?= $hotel['distance_to_center'] ?></td>     
-                        </tr>
+                       <?php include 'templates/tbody.php' ?>
                     <?php endforeach?>
                 <?php endif;?>
               </tbody>
