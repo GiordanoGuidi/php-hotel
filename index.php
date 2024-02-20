@@ -20,6 +20,12 @@ $rated_hotels = array_filter($hotels,function ($hotel){
 });
 var_dump($rated_hotels);
 
+//ARRAY DI HOTEL FILTRATI PER VOTO E PARCHEGGIO
+$rated_parking_hotels= array_filter($rated_hotels, function ($hotel){
+    return ($hotel['parking']== true);
+});
+var_dump($rated_parking_hotels);
+
 
 ?>
 
@@ -41,7 +47,7 @@ var_dump($rated_hotels);
             <!--FORM-->
             <form actiom="" method="GET">
                 <select class="form-select mt-4 mb-4" aria-label="Default select example" name="vote">
-                    <option selected>Filtra in base al voto</option>
+                    <option value="">Filtra in base al voto</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -66,7 +72,7 @@ var_dump($rated_hotels);
                 </tr>
               </thead>
               <tbody>
-                <?php if($parking): ?>
+                <?php if($parking && !$vote): ?>
                     <?php foreach($parking_hotels as $hotel) : ?>
                         <tr>
                             <td><?= $hotel['name'] ?></td>
@@ -76,6 +82,26 @@ var_dump($rated_hotels);
                             <td><?= $hotel['distance_to_center'] ?></td>     
                         </tr>
                     <?php endforeach ?>
+                <?php elseif($vote && !$parking):?>
+                    <?php foreach($rated_hotels as $hotel): ?>    
+                        <tr>
+                            <td><?= $hotel['name'] ?></td>
+                            <td><?= $hotel['description'] ?></td>
+                            <td><?= $hotel['parking'] ?></td>
+                            <td><?= $hotel['vote'] ?></td>
+                            <td><?= $hotel['distance_to_center'] ?></td>     
+                        </tr>
+                        <?php endforeach ?>
+                <?php elseif($vote && $parking): ?>
+                    <?php foreach($rated_parking_hotels as $hotel):?>
+                        <tr>
+                            <td><?= $hotel['name'] ?></td>
+                            <td><?= $hotel['description'] ?></td>
+                            <td><?= $hotel['parking'] ?></td>
+                            <td><?= $hotel['vote'] ?></td>
+                            <td><?= $hotel['distance_to_center'] ?></td>     
+                        </tr>
+                    <?php endforeach?>        
                 <?php else: ?>
                     <?php foreach($hotels as $hotel): ?>
                         <tr>
