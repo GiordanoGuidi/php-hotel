@@ -2,11 +2,9 @@
 require 'data/hotels.php';
 //RECUPERO IL VALORE DELL'INPUT CHECK-BOX
 $parking= $_GET['parking'] ?? '';
-var_dump($parking);
 
 //RECUPERO IL VALORE DELLA SELECT
 $vote = $_GET['vote'] ?? '';
-var_dump($vote);
 
 //ARRAY DI HOTEL CON IL PARCHEGGIO
 $parking_hotels = array_filter($hotels, function ($hotel) {
@@ -18,13 +16,21 @@ $rated_hotels = array_filter($hotels,function ($hotel){
     global $vote;
     return ($hotel['vote'] >= $vote);
 });
-var_dump($rated_hotels);
 
 //ARRAY DI HOTEL FILTRATI PER VOTO E PARCHEGGIO
 $rated_parking_hotels= array_filter($rated_hotels, function ($hotel){
     return ($hotel['parking']== true);
 });
-var_dump($rated_parking_hotels);
+
+//CONDIZIONE PER LA QUALE VIENE SCELTO L'ARRAY SUL QUALE ITERARE
+if($parking){
+    $hotels = $parking_hotels;
+    var_dump($hotels);
+}elseif($vote){
+    $hotels= $rated_hotels;
+}elseif($vote && $parking){
+    $hotels = $ $rated_parking_hotels;
+}
 
 
 ?>
@@ -74,30 +80,9 @@ var_dump($rated_parking_hotels);
               </thead>
               <tbody>
                 <!--VENGONO FILTRATI HOTEL CON PARCHEGGIO-->
-                <?php if($parking && !$vote): ?>
-                    <?php foreach($parking_hotels as $hotel) : ?>
+                    <?php foreach($hotels as $hotel) : ?>
                        <?php include 'templates/tbody.php' ?>
                     <?php endforeach ?>
-                <!--VENGONO FILTRATI HOTEL CON IL VOTO-->
-                <?php elseif($vote && !$parking):?>
-                    <?php foreach($rated_hotels as $hotel): ?> 
-                        <?php include 'templates/tbody.php' ?>
-                        <?php endforeach ?>
-                <!--VENGONO FILTRATI HOTEL CON IL VOTO E IL PARCHEGGIO-->
-                <?php elseif($vote && $parking): ?>
-                    //!validazione in caso la ricerca non da nessun risultato
-                    <?php if(empty($rated_parking_hotels)): ?>
-                        <p> Nessun risultato dalla ricerca!</p>
-                    <?php endif?>  
-                    <?php foreach($rated_parking_hotels as $hotel):?>
-                       <?php include 'templates/tbody.php' ?>
-                    <?php endforeach?> 
-                <!--VENGONO MOSTRATI TUTTI GLI HOTEL-->
-                <?php else: ?>
-                    <?php foreach($hotels as $hotel): ?>
-                       <?php include 'templates/tbody.php' ?>
-                    <?php endforeach?>
-                <?php endif;?>
               </tbody>
             </table>
         </main>
